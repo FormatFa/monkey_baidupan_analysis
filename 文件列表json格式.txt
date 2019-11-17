@@ -1,0 +1,32 @@
+
+response 是个json对象,list是个数组，每个元素为下面的元素
+
+category: 6
+​​
+dir_empty: 0
+​​
+empty: 0
+​​
+fs_id: 616179484542953
+​​
+isdir: 1
+​​
+local_ctime: 1571310294
+​​
+local_mtime: 1571310294
+​​
+oper_id: 3393657624
+​​
+path: "/大数据资源"
+​​
+server_ctime: 1571310294
+​​
+server_filename: "大数据资源"
+​​
+server_mtime: 1571310294
+​​
+share: 0
+​​
+size: 0
+​​
+unlist: 0

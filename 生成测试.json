@@ -1,0 +1,120 @@
+[
+    {
+        "name": "根目录",
+        "path": "/windows镜像",
+        "children": [
+            {
+                "name": "Windows 10 专业版 v1803 64位 2018.7（纯净版）",
+                "path": "/windows镜像/Windows 10 专业版 v1803 64位 2018.7（纯净版）",
+                "children": [
+                    {
+                        "name": "系统简介+截图",
+                        "path": "/windows镜像/Windows 10 专业版 v1803 64位 2018.7（纯净版）/系统简介+截图",
+                        "children": [
+                            {
+                                "name": "02.png",
+                                "path": "/windows镜像/Windows 10 专业版 v1803 64位 2018.7（纯净版）/系统简介+截图/02.png",
+                                "value": 264886
+                            },
+                            {
+                                "name": "01.png",
+                                "path": "/windows镜像/Windows 10 专业版 v1803 64位 2018.7（纯净版）/系统简介+截图/01.png",
+                                "value": 137502
+                            },
+                            {
+                                "name": "04.png",
+                                "path": "/windows镜像/Windows 10 专业版 v1803 64位 2018.7（纯净版）/系统简介+截图/04.png",
+                                "value": 96595
+                            },
+                            {
+                                "name": "03.png",
+                                "path": "/windows镜像/Windows 10 专业版 v1803 64位 2018.7（纯净版）/系统简介+截图/03.png",
+                                "value": 263857
+                            },
+                            {
+                                "name": "系统简介.txt",
+                                "path": "/windows镜像/Windows 10 专业版 v1803 64位 2018.7（纯净版）/系统简介+截图/系统简介.txt",
+                                "value": 1755
+                            }
+                        ],
+                        "value": 764595
+                    },
+                    {
+                        "name": "文件校验工具.exe",
+                        "path": "/windows镜像/Windows 10 专业版 v1803 64位 2018.7（纯净版）/文件校验工具.exe",
+                        "value": 1211934
+                    },
+                    {
+                        "name": "文件校验信息（必须校对！）.txt",
+                        "path": "/windows镜像/Windows 10 专业版 v1803 64位 2018.7（纯净版）/文件校验信息（必须校对！）.txt",
+                        "value": 534
+                    },
+                    {
+                        "name": "【软件】Microsoft Office 下载地址.url",
+                        "path": "/windows镜像/Windows 10 专业版 v1803 64位 2018.7（纯净版）/【软件】Microsoft Office 下载地址.url",
+                        "value": 124
+                    },
+                    {
+                        "name": "【首发地址】（www.cyxitong.com）.url",
+                        "path": "/windows镜像/Windows 10 专业版 v1803 64位 2018.7（纯净版）/【首发地址】（www.cyxitong.com）.url",
+                        "value": 125
+                    },
+                    {
+                        "name": "CN_Windows_10_Professional_Version_1803_x64_2018.7.WIM",
+                        "path": "/windows镜像/Windows 10 专业版 v1803 64位 2018.7（纯净版）/CN_Windows_10_Professional_Version_1803_x64_2018.7.WIM",
+                        "value": 6440728049
+                    },
+                    {
+                        "name": "安装工具&教程（会安装的就不用看了）.url",
+                        "path": "/windows镜像/Windows 10 专业版 v1803 64位 2018.7（纯净版）/安装工具&教程（会安装的就不用看了）.url",
+                        "value": 134
+                    }
+                ],
+                "value": 6442705495
+            },
+            {
+                "name": "5个混合镜像包",
+                "path": "/windows镜像/5个混合镜像包",
+                "children": [
+                    {
+                        "name": "注意事项，没下的你就后悔了。.txt",
+                        "path": "/windows镜像/5个混合镜像包/注意事项，没下的你就后悔了。.txt",
+                        "value": 124
+                    },
+                    {
+                        "name": "bochs 5款经典镜像.rar",
+                        "path": "/windows镜像/5个混合镜像包/bochs 5款经典镜像.rar",
+                        "value": 881073806
+                    }
+                ],
+                "value": 881073930
+            },
+            {
+                "name": "98可上网集成红警.zip",
+                "path": "/windows镜像/98可上网集成红警.zip",
+                "value": 206999805
+            },
+            {
+                "name": "贝贝XP with Internet.7z",
+                "path": "/windows镜像/贝贝XP with Internet.7z",
+                "value": 96947948
+            },
+            {
+                "name": "带q有网络声音的xp镜像.img",
+                "path": "/windows镜像/带q有网络声音的xp镜像.img",
+                "value": 888954880
+            },
+            {
+                "name": "win7.zip",
+                "path": "/windows镜像/win7.zip",
+                "value": 410138450
+            },
+            {
+                "name": "网，声xp.img",
+                "path": "/windows镜像/网，声xp.img",
+                "value": 876412928
+            }
+        ],
+        "value": 9803233436
+    }
+]
