@@ -1,15 +1,16 @@
 // ==UserScript==
 // @name     百度网盘空间占用分析
-// @version  1
+// @version  1.1
 // @description 百度网盘磁盘占用分析,可视化图表的方式显示出来
-// @include  https://pan.baidu.com/disk/home*
+// @include  https://pan.baidu.com/disk/main*
 // @grant    none
+// @namespace http://blog.formatfa.top
 //引入jquery
 // @require      https://code.jquery.com/jquery-latest.js
-// @require			 https://cdnjs.cloudflare.com/ajax/libs/echarts/4.3.0/echarts.min.js
+// @require          https://cdnjs.cloudflare.com/ajax/libs/echarts/4.3.0/echarts.min.js
 // ==/UserScript==
 //这里用这个是匿名函数
-(function () {
+(function(){
     'use strict';
 
     // 字节转换为文件大小
@@ -35,10 +36,10 @@
     function download(filename, result) {
         console.log("下载:")
         console.log(result)
-        var text = JSON.stringify(result);
+        var text=JSON.stringify(result);
         /*   result.forEach(function(value,index){
-             text+=(value+"\n")
-           })*/
+      text+=(value+"\n")
+    })*/
         var element = document.createElement('a');
         element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
         element.setAttribute('download', filename);
@@ -53,24 +54,25 @@
 
 
     //遍历获取文件列表,路径，文件夹名字，结果容器，当前深度, 扫描的最大深度
-    function collectFiles(path, name, result, nowDepth, maxDepth) {
+    function collectFiles(path,name,result,nowDepth,maxDepth)
+    {
         $("#process_text").text(path)
         //最大深度没定义时 不会判断，会一直扫描, 大于最大深度，不再扫描
-        if (maxDepth > 0 && nowDepth > maxDepth)
+        if( maxDepth>0&& nowDepth>maxDepth)
             return
         //目录的名字
-        console.log("扫描:" + path)
+        console.log("扫描:"+path)
 
 
         //同步请求,一次请求1000个文件，就不用处理翻页，除非有某个文件夹文件数量大于1000的
         let res = $.ajax({
-            url: "https://pan.baidu.com/api/list?num=1000&order=time&desc=1&clienttype=0&showempty=0&web=1&page=1&channel=chunlei&web=1&app_id=250528",
-            data: {
-                dir: path
+            url:"https://pan.baidu.com/api/list?num=1000&order=time&desc=1&clienttype=0&showempty=0&web=1&page=1&channel=chunlei&web=1&app_id=250528",
+            data:{
+                dir:path
             },
-            type: "get",
+            type:"get",
             //同步请求，接受数据
-            async: false
+            async : false
         })
 
 
@@ -78,37 +80,38 @@
 
         //目录总大小,echarts的图，每个都要有value
         let dir_size = 0;
-        let children = [];
+        let children=[];
         //数量，用于显示进度
         let count = files.length;
-        files.forEach(function (value, index) {
-            if (nowDepth == 0)
-                $("#analysis").text("扫描:" + index + "/" + count + " " + value.path)
+        files.forEach(function(value,index){
+            if(nowDepth==0)
+                $("#analysis").text("扫描:"+index+"/"+count+" "+value.path)
 
-            if (value.isdir == 0)
-            //添加到二级目录
+            if(value.isdir==0)
+                //添加到二级目录
             {
                 children.push(
                     {
-                        name: value.server_filename,
-                        path: value.path,
-                        value: value.size
+                        name:value.server_filename,
+                        path:value.path,
+                        value:value.size
                     })
-                dir_size += value.size;
+                dir_size+=value.size;
             }
             //文件夹的话，递归
-            if (value.isdir == 1) {
+            if(value.isdir==1)
+            {
                 //添加到总的文件夹大小
-                dir_size += collectFiles(value.path, value.server_filename, children, nowDepth + 1, maxDepth)
+                dir_size += collectFiles(value.path,value.server_filename,children,nowDepth+1,maxDepth)
             }
 
         })
-        if (nowDepth == 0) $("#analysis").text("空间占用分析")
+        if(nowDepth==0)$("#analysis").text("空间占用分析")
         result.push({
-            name: name,
-            path: path,
-            children: children,
-            value: dir_size
+            name:name,
+            path:path,
+            children:children,
+            value:dir_size
         })
 
         return dir_size;
@@ -116,19 +119,20 @@
 
 
     //插入图表，显示图表
-    function showChart(result) {
+    function showChart(result)
+    {
         console.log("显示图表...")
         console.log(result)
         //如果没有这个div,就插入,图表大小等
-        if ($("#chartcontainer").length == 0)
+        if($("#chartcontainer").length==0)
             $("body").prepend("<div id='chartcontainer' style='z-index:9999;width: 400px;height:400px;position: fixed;right: 0;top: 0;' ><div id='diskusage' style='width:400px;height:400px;'><div></div>")
 
         //查找图表
         let chart = echarts.init(document.getElementById("diskusage"))
         chart.setOption({
-            title: { text: "磁盘使用" },
-            tooltip: {
-                formatter: function (params) {
+            title:{text:"磁盘使用"},
+            tooltip:{
+                formatter:function(params){
                     let value = params.value
                     let size = getSize(value);
                     return params.name + ":" + size
@@ -136,11 +140,11 @@
             },
             toolbox: {
                 show: true,
-                bottom: 0,
-                showTitle: false,
+                bottom:0,
+                showTitle:false,
 
-                tooltip: {
-                    show: true
+                tooltip:{
+                    show:true
                 },
                 feature: {
 
@@ -150,7 +154,7 @@
                         title: "下载文件列表",
                         onclick: function () {
                             //下载文件列表的json数据
-                            download("百度网盘文件.json", result);
+                            download("百度网盘文件.json",result);
                         }
                     },
                     myTool2: {
@@ -166,66 +170,70 @@
 
                 }
             },
-            series: {
+            series:{
                 //设置叶片的深度，为1就只显示一级的目录
-                leafDepth: 1,
-                name: "磁盘使用",
-                type: "treemap",
+                leafDepth:1,
+                name:"磁盘使用",
+                type:"treemap",
                 //扫描的结果，第一个只有一个元素，这里直接显示下面的
-                data: result[0].children
+                data:result[0].children
             }
         })
 
 
     }
 
-    //1. 在新建文件夹后面添加个按钮
-    var xinjian = $("a:contains('新建文件夹')")
-    if (xinjian.length == 0) {
-        console.warn("查找不到新建文件夹按钮!!")
-        return;
-    }
+    setTimeout(()=>{
+        //1. 在新建文件夹后面添加个按钮
+        var xinjian=$("button[title='新建文件夹']")
+        if(xinjian.length==0){
+            console.warn("查找不到新建文件夹按钮!!")
+            return;
+        }
 
-    //显示当前扫描的目录名字 
-    var process = $('<span id="process_text" ></span>')
-    //添加一个按钮到他后面
-    var analysis = $("<button id='analysis'>分析</button>")
-    analysis.text("空间占用分析")
-    console.log(analysis)
-    //添加到新建文件夹后面
+        //显示当前扫描的目录名字
+        var process = $('<span id="process_text" ></span>')
+        //添加一个按钮到他后面
+        var analysis = $("<button id='analysis'>分析</button>")
+        analysis.text("空间占用分析")
+        console.log(analysis)
+        //添加到新建文件夹后面
 
-    xinjian.after(process)
-    xinjian.after(analysis)
+        xinjian.after(process)
+        xinjian.after(analysis)
 
 
-    //设置点击事件
-    $("#analysis").click(function () {
+           //设置点击事件
+    $("#analysis").click(function(){
         console.log("fff")
         let result = []
 
         //查找出当前的目录<span title="全部文件/我的资源/AIDE-Web/AIDE-Web_Carck/Embedded-Chinese/反编译资源">反编译资源</span>
         //找到到的可能有两个，第二个是完整路径
         var path = $('span[title^="全部文件/"]')
-        if (path.length == 0) {
-            path = "/"
+        if(path.length==0)
+        {
+            path="/"
         }
         else
-            path = path.attr("title").replace("全部文件", "")
+            path=path.attr("title").replace("全部文件","")
 
-        console.log("当前目录:" + path)
-        var path = prompt("输入要扫描的目录", path)
-        if (path == null) {
+        console.log("当前目录:"+path)
+        var path = prompt("输入要扫描的目录",path)
+        if(path==null)
+        {
             alert("输入目录取消")
             return;
         }
 
         //测试时用某个目录下的
-        var depth = prompt("输入要扫描的深度(-1为全盘扫描)", "-1")
-        if (depth == null) {
+        var depth = prompt("输入要扫描的深度(-1为全盘扫描,文件过多会请求太多卡死，-1谨慎使用)","2")
+        if(depth==null)
+        {
             alert("取消!")
             return
         }
-        collectFiles(path, "根目录", result, 0, parseInt(depth))
+        collectFiles(path,"根目录",result,0,parseInt(depth))
         console.log("获取到的文件列表..")
         console.log(result)
         //download("files.txt",result);
@@ -234,5 +242,9 @@
         //显示图表
         showChart(result)
     })
+
+    },3000)
+
+
 
 })()
